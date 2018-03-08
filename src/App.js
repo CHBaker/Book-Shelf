@@ -23,7 +23,6 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.getBooks()
     }
 
     getBooks () {
@@ -39,21 +38,25 @@ class App extends Component {
             <div>
                 <Nav />
                 <Route exact path='/' render={() => (
-                    <Reads books={this.state.books} />
+                    <Reads
+                        page={'currentlyReading'}
+                    />
                 )} />
-<<<<<<< HEAD
                 <Route exact path='/wanttoread' render={() => (
-                    <Reads page={'wantToRead'} />
+                    <Reads
+                        page={'wantToRead'}
+                    />
                 )} />
                 <Route exact path='/read' render={() => (
-                    <Reads page={'read'} />
+                    <Reads
+                        page={'read'}
+                    />
+                )} />
+                <Route exact path='/wanttoread' render={() => (
+                    <Reads page='wanttoread' />
                 )} />
                 <Route exact path='/search' render={() => (
-                    <h1>search shit</h1>
-=======
-                <Route exact path='/toread' render={() => (
-                    <Reads books={this.state.books} />
->>>>>>> parent of 43f8414... FEATURE: navigation, page skeletons
+                    <h1>search stuff</h1>
                 )} />
             </div>
         )
