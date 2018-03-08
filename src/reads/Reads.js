@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import * as booksApi from '../utils/BooksApi'
+import Book from './Book'
 
 class Reads extends Component {
 
@@ -9,14 +10,17 @@ class Reads extends Component {
         page: this.props.page
     }
 
-    componentDidMount () {
+    componentDidMount() {
         this.updatePage()
         this.getBooks()
     }
 
-    getBooks () {
+    getBooks() {
+        this.getAllBooks()
+    }
+
+    getAllBooks() {
         booksApi.getAll().then((books) => {
-            console.log(this.props)
             const current = books.filter((book) => book.shelf === this.props.page)
             this.setState({ books: current })
             console.log(this.state.books)
@@ -26,21 +30,25 @@ class Reads extends Component {
     updatePage() {
         switch (this.props.page) {
             case 'currentlyReading':
-                this.setState({title: 'Currently Reading'})
+                this.setState({ title: 'Currently Reading' })
                 break;
             case 'wantToRead':
-                this.setState({title: 'Want to Read'})
+                this.setState({ title: 'Want to Read' })
                 break;
             case 'read':
-                this.setState({title: 'Read'})
+                this.setState({ title: 'Read' })
                 break;
             default:
-                this.setState({title: 'Currently Reading'})
+                this.setState({ title: 'Currently Reading' })
         };
     }
 
     addToShelf(bookId, shelf) {
-        this.booksApi.shelf(bookId, shelf);
+        booksApi.update(bookId, shelf);
+    }
+
+    delete(bookId) {
+
     }
 
     render(props) {
@@ -51,7 +59,13 @@ class Reads extends Component {
                 </div>
                 <ul>
                     {this.state.books.map((book) => (
-                        <li key={book.id}>{book.title}</li>
+                        <Book
+                            key={ book.id }
+                            book={ book }
+                            page={ this.props.page }
+                            addToShelf={ this.addToShelf }
+                            delete={ this.delete }
+                        />
                     ))}
                 </ul>
             </div>

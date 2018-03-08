@@ -15,7 +15,7 @@ function Nav () {
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link to='/toread' className='nav-link'>
+                        <Link to='/wanttoread' className='nav-link'>
                             Want 2 Read
                         </Link>
                     </li>
