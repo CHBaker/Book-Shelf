@@ -52,9 +52,6 @@ class App extends Component {
                         page={'read'}
                     />
                 )} />
-                <Route exact path='/wanttoread' render={() => (
-                    <Reads page='wanttoread' />
-                )} />
                 <Route exact path='/search' render={() => (
                     <h1>search stuff</h1>
                 )} />

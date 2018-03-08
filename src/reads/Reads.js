@@ -7,11 +7,10 @@ class Reads extends Component {
     state = {
         books: [],
         title: '',
-        page: ''
+        page: this.props.page
     }
 
     componentDidMount() {
-        this.setState({page: this.props.page})
         this.updatePage()
         this.getBooks()
     }
