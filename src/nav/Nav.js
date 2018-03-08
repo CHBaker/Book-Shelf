@@ -10,24 +10,22 @@ function Nav () {
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
                     <li className="nav-item">
-                        <Link to='/' className='nav-link'>
-                            Currently Reading
-                        </Link>
+                        <a className="nav-link">Currently Reading<span className="sr-only">(current)</span></a>
                     </li>
                     <li className="nav-item">
+<<<<<<< HEAD
                         <Link to='/wanttoread' className='nav-link'>
                             Want 2 Read
                         </Link>
+=======
+                        <a className="nav-link">Want 2 Read</a>
+>>>>>>> parent of 43f8414... FEATURE: navigation, page skeletons
                     </li>
                     <li className="nav-item">
-                        <Link to='read' className='nav-link'>
-                            Read
-                        </Link>
+                        <a className="nav-link">Read</a>
                     </li>
-                    <li className='nav-item'>
-                        <Link to='search' className='nav-link'>
-                            <i className="fa fa-search"></i>
-                        </Link>
+                    <li className='nav-item search'>
+                        <a className='nav-link'><i className="fa fa-search"></i></a>
                     </li>
                 </ul>
             </div>

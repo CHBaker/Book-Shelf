@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+<<<<<<< HEAD
 import * as booksApi from '../utils/BooksApi'
 import Book from './Book'
 
@@ -65,6 +66,17 @@ class Reads extends Component {
                     ))}
                 </ul>
             </div>
+=======
+
+class Reads extends Component {
+    render (props) {
+        return (
+            <ul>
+                {this.props.books.map((book) => (
+                    <li key={book.id}>{book.title}</li>
+                ))}
+            </ul>
+>>>>>>> parent of 43f8414... FEATURE: navigation, page skeletons
         )
     }
 }
