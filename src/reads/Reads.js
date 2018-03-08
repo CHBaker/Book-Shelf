@@ -6,9 +6,9 @@ import Book from './Book'
 class Reads extends Component {
 
     state = {
-        page: '',
         books: [],
-        title: ''
+        title: '',
+        page: this.props.page
     }
 
     componentDidMount() {
@@ -17,9 +17,13 @@ class Reads extends Component {
     }
 
     getBooks() {
+        this.getAllBooks()
+    }
+
+    getAllBooks() {
         booksApi.getAll().then((books) => {
-            const filteredBooks = books.filter((book) => book.shelf === this.props.page)
-            this.setState({ books: filteredBooks, page : this.props.page })
+            const current = books.filter((book) => book.shelf === this.props.page)
+            this.setState({ books: current })
             console.log(this.state.books)
         })
     }
@@ -59,9 +63,9 @@ class Reads extends Component {
                         <Book
                             key={ book.id }
                             book={ book }
-                            page={ this.state.page }
-                            addToShelf={(bookId, shelf) => this.addToShelf(bookId, shelf) }
-                            delete={(bookId) => this.delete(bookId) }
+                            page={ this.props.page }
+                            addToShelf={ this.addToShelf }
+                            delete={ this.delete }
                         />
                     ))}
                 </ul>

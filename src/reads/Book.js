@@ -49,14 +49,13 @@ class Book extends Component {
                 break
 
             case 'read':
-                // onClick={ this.props.addToShelf(this.props.book, 'wantToRead') }
                 this.wantToRead = (
-                    <button className="dropdown-item">
+                    <button onClick={ this.props.addToShelf(this.props.book, 'wantToRead') } className="dropdown-item">
                         Add to Want 2 Read
                     </button>
                 )
                 this.currentlyReading = (
-                    <button className="dropdown-item">
+                    <button onClick={ this.props.addToShelf(this.props.book, 'currentlyReading') } className="dropdown-item">
                         Add to Currently Reading
                     </button>
                 )
