@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom'
 import * as booksApi from './utils/BooksApi'
 import Nav from './nav/Nav'
 import Reads from './reads/Reads'
+import Filter from './filter/Filter';
 
 class App extends Component {
     // constructor(props) {
@@ -23,12 +24,12 @@ class App extends Component {
     }
 
     componentDidMount() {
+        this.getAllBooks()
     }
 
-    getBooks () {
+    getAllBooks () {
         booksApi.getAll().then((books) => {
-            const current = books.filter((book) => book.shelf === 'currentlyReading')
-            this.setState({ books: current })
+            this.setState({ books: books })
             console.log(this.state.books)
         })
     }
@@ -39,21 +40,27 @@ class App extends Component {
                 <Nav />
                 <Route exact path='/' render={() => (
                     <Reads
+                        books={this.state.books}
                         page={'currentlyReading'}
                     />
                 )} />
                 <Route exact path='/wanttoread' render={() => (
                     <Reads
+                        books={this.state.books}
                         page={'wantToRead'}
                     />
                 )} />
                 <Route exact path='/read' render={() => (
                     <Reads
+                        books={this.state.books}
                         page={'read'}
                     />
                 )} />
                 <Route exact path='/search' render={() => (
-                    <h1>search stuff</h1>
+                    <Filter
+                        books={this.state.books}
+                        page={'filter'}
+                    />
                 )} />
             </div>
         )

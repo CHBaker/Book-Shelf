@@ -7,21 +7,13 @@ class Reads extends Component {
     state = {
         books: [],
         title: '',
-        page: this.props.page
+        page: ''
     }
 
     componentDidMount() {
+        console.log(this.props.page)
+        this.setState({books: this.props.books})
         this.updatePage()
-        this.getBooks()
-    }
-
-    getBooks() {
-        booksApi.getAll().then((books) => {
-            const current = books.filter((book) => book.shelf === this.state.page)
-            this.setState((prevState) => ({ books: current }))
-            console.log(this.state.books)
-            console.log(this.state.page)
-        })
     }
 
     updatePage() {
@@ -40,12 +32,12 @@ class Reads extends Component {
         };
     }
 
-    addToShelf(bookId, shelf) {
+    addToShelf = (bookId, shelf) => {
         booksApi.update(bookId, shelf);
     }
 
-    delete(bookId) {
-
+    delete = (bookId) => {
+        booksApi.update(bookId, 'None');
     }
 
     render(props) {
@@ -55,14 +47,16 @@ class Reads extends Component {
                     <h1>{this.state.title}</h1>
                 </div>
                 <ul>
-                    {this.state.books.map((book) => (
-                        <Book
-                            key={ book.id }
-                            book={ book }
-                            page={ this.props.page }
-                            addToShelf={ this.addToShelf }
-                            delete={ this.delete }
-                        />
+                    {this.props.books
+                        .filter((book) => book.shelf = this.props.page)
+                        .map((book) => (
+                            <Book
+                                key={ book.id }
+                                book={ book }
+                                page={ this.props.page }
+                                addToShelf={ this.addToShelf }
+                                delete={ this.delete }
+                            />
                     ))}
                 </ul>
             </div>
