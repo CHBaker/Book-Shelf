@@ -7,17 +7,6 @@ import Reads from './reads/Reads'
 import Filter from './filter/Filter';
 
 class App extends Component {
-    // constructor(props) {
-    //     super(props)
-    //     this.handler = this.handler.bind(this)
-    // }
-
-    // handler(e) {
-    //     e.preventDefault()
-    //     this.setState({
-    //         someVar: someValue
-    //     })
-    // }
 
     state = {
         books: []

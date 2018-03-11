@@ -7,6 +7,7 @@ import * as booksApi from '../utils/BooksApi'
 class Filter extends Component {
 
     state = {
+        query: '',
         books: []
     }
 
@@ -16,25 +17,39 @@ class Filter extends Component {
 
     updateQuery = (query) => {
         console.log('query: ', query)
-        booksApi.search(query.trim())
-            .then(
-                (books) => this.setState({books: books}),
-                (error) => console.log(error)
-            )
+        this.setState({ query: query.trim() })
+    }
+
+    addToShelf = (book, shelf) => {
+        console.log(book.title, shelf)
+        booksApi.update(book, shelf)
+             .then((r) => console.log(r))
+        // const updated = this.state.book
+        // updated.shelf = shelf
+        // this.setState({book: updated})
     }
 
     render() {
+        const { query } = this.state
+
+        if (query) {
+            booksApi.search(query.trim(), 20)
+                .then(
+                    (searchedBooks) => {
+                        this.setState({ books: searchedBooks})
+                    },
+                    (error) => console.log(error)
+                )
+        }
+
         return (
             <div>
-                <div className='title'>
-                    <h1>{this.state.title}</h1>
-                </div>
                 <div className='row filter-row'>
                     <form>
                         <input
                             type='text'
                             placeholder='search books'
-                            onChange={(event) => this.updateQuery(event.target.value)}
+                            onChange={(event) => this.updateQuery(event.target.value )}
                         />
                     </form>
                 </div>
@@ -45,7 +60,18 @@ class Filter extends Component {
                                 key={ book.id }
                                 book={ book }
                                 page={ this.props.page }
-                                addToShelf={ this.addToShelf }
+                                onAddToShelf={ this.addToShelf }
+                            />
+                    ))}
+                </ul>
+                <ul>
+                    {this.state.query === '' && this.props.books
+                        .map((book) => (
+                            <Book
+                                key={ book.id }
+                                book={ book }
+                                page={ this.props.page }
+                                onAddToShelf={ this.addToShelf }
                             />
                     ))}
                 </ul>
