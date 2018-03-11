@@ -1,40 +1,45 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
-import Book from '../reads/Book';
+import Book from '../reads/Book'
+import * as booksApi from '../utils/BooksApi'
 
 class Filter extends Component {
 
     state = {
-        query: ''
+        books: []
+    }
+
+    componentDidMount() {
+        this.setState({books: this.props.books})
     }
 
     updateQuery = (query) => {
-        this.setState({ query: query.trim() })
+        console.log('query: ', query)
+        booksApi.search(query.trim())
+            .then(
+                (books) => this.setState({books: books}),
+                (error) => console.log(error)
+            )
     }
 
     render() {
-        const { books } = this.props
-        const { query } = this.state
-        let showingBooks
-
-        if(query) {
-            const match = new RegExp(escapeRegExp(query),  'i')
-            showingBooks = books.filter((book) => match.test(book.name || book.author))
-        } else {
-            showingBooks = books
-        }
-
-        showingBooks.sort(sortBy('name'))
-
         return (
             <div>
                 <div className='title'>
                     <h1>{this.state.title}</h1>
                 </div>
+                <div className='row filter-row'>
+                    <form>
+                        <input
+                            type='text'
+                            placeholder='search books'
+                            onChange={(event) => this.updateQuery(event.target.value)}
+                        />
+                    </form>
+                </div>
                 <ul>
-                    {this.props.books
+                    {this.state.books
                         .map((book) => (
                             <Book
                                 key={ book.id }

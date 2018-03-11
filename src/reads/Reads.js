@@ -12,7 +12,8 @@ class Reads extends Component {
 
     componentDidMount() {
         console.log(this.props.page)
-        this.setState({books: this.props.books})
+        const pageBooks = this.props.books.filter((book) => book.shelf = this.props.page)
+        this.setState({books: pageBooks})
         this.updatePage()
     }
 
@@ -32,14 +33,6 @@ class Reads extends Component {
         };
     }
 
-    addToShelf = (bookId, shelf) => {
-        booksApi.update(bookId, shelf);
-    }
-
-    delete = (bookId) => {
-        booksApi.update(bookId, 'None');
-    }
-
     render(props) {
         return (
             <div>
@@ -48,14 +41,11 @@ class Reads extends Component {
                 </div>
                 <ul>
                     {this.props.books
-                        .filter((book) => book.shelf = this.props.page)
                         .map((book) => (
                             <Book
                                 key={ book.id }
                                 book={ book }
                                 page={ this.props.page }
-                                addToShelf={ this.addToShelf }
-                                delete={ this.delete }
                             />
                     ))}
                 </ul>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import * as booksApi from '../utils/BooksApi'
 
 class Book extends Component {
     currentlyReading
@@ -6,6 +7,7 @@ class Book extends Component {
     read
 
     state = {
+        book: this.props.book,
         hidden: true
     }
 
@@ -20,16 +22,26 @@ class Book extends Component {
         })
     }
 
+    addToShelf = (bookId, shelf) => {
+        console.log(shelf)
+        booksApi.update(bookId, shelf)
+            .then((r) => console.log(r))
+    }
+
+    delete = (bookId) => {
+        booksApi.update(bookId, 'None');
+    }
+
     defineOptions = () => {
         switch(this.props.page) {
             case 'currentlyReading':
                 this.read = (
-                    <button onClick={() => this.props.addToShelf(this.props.book, 'read') } className="dropdown-item">
+                    <button onClick={() => this.addToShelf(this.state.book, 'read') } className="dropdown-item">
                         Add to Read
                     </button>
                 )
                 this.wantToRead = (
-                    <button onClick={() => this.props.addToShelf(this.props.book, 'wantToRead') } className="dropdown-item">
+                    <button onClick={() => this.addToShelf(this.state.book, 'wantToRead') } className="dropdown-item">
                         Add to Want 2 Read
                     </button>
                 )
@@ -37,12 +49,12 @@ class Book extends Component {
 
             case 'wantToRead':
                 this.currentlyReading = (
-                    <button onClick={() => this.props.addToShelf(this.props.book, 'currentlyReading') } className="dropdown-item">
+                    <button onClick={() => this.addToShelf(this.state.book, 'currentlyReading') } className="dropdown-item">
                         Add to Currently Reading
                     </button>
                 )
                 this.read = (
-                    <button onClick={() => this.props.addToShelf(this.props.book, 'read') } className="dropdown-item">
+                    <button onClick={() => this.addToShelf(this.state.book, 'read') } className="dropdown-item">
                         Add to Read
                     </button>
                 )
@@ -50,12 +62,12 @@ class Book extends Component {
 
             case 'read':
                 this.wantToRead = (
-                    <button onClick={() => this.props.addToShelf(this.props.book, 'wantToRead') } className="dropdown-item">
+                    <button onClick={() => this.addToShelf(this.state.book, 'wantToRead') } className="dropdown-item">
                         Add to Want 2 Read
                     </button>
                 )
                 this.currentlyReading = (
-                    <button onClick={() => this.props.addToShelf(this.props.book, 'currentlyReading') } className="dropdown-item">
+                    <button onClick={() => this.addToShelf(this.state.book, 'currentlyReading') } className="dropdown-item">
                         Add to Currently Reading
                     </button>
                 )
@@ -63,17 +75,17 @@ class Book extends Component {
 
             case 'filter':
                 this.wantToRead = (
-                    <button onClick={() => this.props.addToShelf(this.props.book, 'wantToRead') } className="dropdown-item">
+                    <button onClick={() => this.addToShelf(this.state.book, 'wantToRead') } className="dropdown-item">
                         Add to Want 2 Read
                     </button>
                 )
                 this.currentlyReading = (
-                    <button onClick={() => this.props.addToShelf(this.props.book, 'currentlyReading') } className="dropdown-item">
+                    <button onClick={() => this.addToShelf(this.state.book, 'currentlyReading') } className="dropdown-item">
                         Add to Currently Reading
                     </button>
                 )
                 this.read = (
-                    <button onClick={() => this.props.addToShelf(this.props.book, 'read') } className="dropdown-item">
+                    <button onClick={() => this.addToShelf(this.state.book, 'read') } className="dropdown-item">
                         Add to Read
                     </button>
                 )
@@ -81,12 +93,12 @@ class Book extends Component {
 
             default:
                 this.read = (
-                    <button onClick={() => this.props.addToShelf(this.props.book, 'read') } className="dropdown-item">
+                    <button onClick={() => this.addToShelf(this.state.book, 'read') } className="dropdown-item">
                         Add to Read
                     </button>
                 )
                 this.wantToRead = (
-                    <button onClick={() => this.props.addToShelf(this.props.book, 'wantToRead') } className="dropdown-item">
+                    <button onClick={() => this.addToShelf(this.state.book, 'wantToRead') } className="dropdown-item">
                         Add to Want 2 Read
                     </button>
                 )
@@ -108,7 +120,7 @@ class Book extends Component {
                             { this.read }
                             <div className="dropdown-divider"></div>
                             {this.props.page !== 'filter' &&
-                                <button onClick={() => this.props.delete(this.props.book) } className="dropdown-item">Delete</button>
+                                <button onClick={() => this.delete(this.state.book) } className="dropdown-item">Delete</button>
                             }
                         </div>
                     }
