@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Book from './Book'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import * as booksApi from '../utils/BooksApi'
 
@@ -7,75 +8,74 @@ class Reads extends Component {
 
     static propTypes = {
         books: PropTypes.array.isRequired,
-        page: PropTypes.string.isRequired
-    }
-
-    state = {
-        books: [],
-        title: '',
-        page: ''
-    }
-
-    componentDidMount() {
-        console.log(this.props.page)
-        const pageBooks = this.props.books.filter((book) => book.shelf = this.props.page)
-        console.log('filtered page books: ', pageBooks)
-        this.setState({books: pageBooks, page: this.props.page})
-        this.updatePage()
-    }
-
-    addToShelf = (book, shelf) => {
-        console.log(book.title, shelf)
-        booksApi.update(book, shelf)
-            .then((r) => console.log(r))
-        const updated = this.state.book
-        updated.shelf = shelf
-        this.setState({book: updated})
-    }
-
-    delete = (book) => {
-        booksApi.update(book, 'none');
-    }
-
-    updatePage() {
-        switch (this.props.page) {
-            case 'currentlyReading':
-                this.setState({ title: 'Currently Reading' })
-                break;
-            case 'wantToRead':
-                this.setState({ title: 'Want to Read' })
-                break;
-            case 'read':
-                this.setState({ title: 'Read' })
-                break;
-            default:
-                this.setState({ title: 'Currently Reading' })
-        };
+        onAddToShelf: PropTypes.func.isRequired
     }
 
     render(props) {
-        const { books, page } = this.props
-        let pageBooks
+        const { books, onAddToShelf, OnUpdateBooks } = this.props
+        let currentBooks, wantBooks, readBooks
 
-        pageBooks = books.filter((book) => book.shelf = this.props.page)
+        currentBooks = books.filter((book) => book.shelf === 'currentlyReading')
+        wantBooks = books.filter((book) => book.shelf === 'wantToRead')
+        readBooks = books.filter((book) => book.shelf === 'read')
 
         return (
             <div>
-                <div className='title'>
-                    <h1>{this.state.title}</h1>
-                </div>
-                <ul>
-                    {pageBooks
-                        .map((book) => (
+                <div>
+                    <div className='title'>
+                        <h1>Currently Reading</h1>
+                    </div>
+                    <ul>
+                        {currentBooks.map((book) => (
                             <Book
-                                key={ book.id }
-                                book={ book }
-                                page={ this.props.page }
-                                onAddToShelf={ this.addToShelf }
-                                onDelete={ this.delete }
+                                key={book.id}
+                                book={book}
+                                page='currentlyReading'
+                                onAddToShelf={this.props.onAddToShelf}
                             />
-                    ))}
-                </ul>
+                        ))}
+                    </ul>
+                </div>
+
+                <div>
+                    <div className='title'>
+                        <h1>Want 2 Read</h1>
+                        <hr />
+                    </div>
+                    <ul>
+                        {wantBooks.map((book) => (
+                            <Book
+                                key={book.id}
+                                book={book}
+                                page='wantToRead'
+                                onAddToShelf={this.props.onAddToShelf}
+                            />
+                        ))}
+                    </ul>
+                </div>
+
+                <div>
+                    <div className='title'>
+                        <h1>Read</h1>
+                        <hr />
+                    </div>
+                    <ul>
+                        {readBooks.map((book) => (
+                            <Book
+                                key={book.id}
+                                book={book}
+                                page='read'
+                                onAddToShelf={this.props.onAddToShelf}
+                            />
+                        ))}
+                    </ul>
+                </div>
+
+                <div className='search'>
+                    <Link to='/search'>
+                        search
+                    </Link>
+                </div>
             </div>
         )
     }

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import './App.css'
 import { Route } from 'react-router-dom'
 import * as booksApi from './utils/BooksApi'
-import Nav from './nav/Nav'
 import Reads from './reads/Reads'
 import Filter from './filter/Filter';
 
@@ -23,32 +22,26 @@ class App extends Component {
         })
     }
 
+    addToShelf = (book, shelf) => {
+        console.log(book.title, shelf)
+        booksApi.update(book, shelf)
+            .then((r) => console.log(r))
+        this.getAllBooks()
+    }
+
     render() {
         return (
             <div>
-                <Nav />
                 <Route exact path='/' render={() => (
                     <Reads
                         books={this.state.books}
-                        page={'currentlyReading'}
-                    />
-                )} />
-                <Route exact path='/wanttoread' render={() => (
-                    <Reads
-                        books={this.state.books}
-                        page={'wantToRead'}
-                    />
-                )} />
-                <Route exact path='/read' render={() => (
-                    <Reads
-                        books={this.state.books}
-                        page={'read'}
+                        onAddToShelf={this.addToShelf}
                     />
                 )} />
                 <Route exact path='/search' render={() => (
                     <Filter
                         books={this.state.books}
-                        page={'filter'}
+                        onAddToShelf={this.addToShelf}
                     />
                 )} />
             </div>

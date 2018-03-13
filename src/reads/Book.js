@@ -5,8 +5,7 @@ import PropTypes from 'prop-types'
 class Book extends Component {
 
     static propTypes = {
-        onAddToShelf: PropTypes.func,
-        onDelete: PropTypes.func
+        onAddToShelf: PropTypes.func
     }
 
     state = {
@@ -30,7 +29,7 @@ class Book extends Component {
     }
 
     render() {
-        const { onDelete, onAddToShelf } = this.props
+        const { onAddToShelf } = this.props
 
         return (
             <div className='book-element'>
@@ -43,30 +42,34 @@ class Book extends Component {
                         <div className="dropdown-menu" style={{ display: 'block' }}>
                             {
                                 this.props.page !== 'currentlyReading' &&
-                                <button onClick={() => onAddToShelf(this.state.book, 'currentlyReading')} className="dropdown-item">
+                                <button
+                                    onClick={() => {
+                                        onAddToShelf(this.state.book, 'currentlyReading')
+                                    }}
+                                        className="dropdown-item"
+                                    >
                                     Add to Currently Reading
                                 </button>
                             }
                             {
                                 this.props.page !== 'wantToRead' &&
-                                <button onClick={() => onAddToShelf(this.state.book, 'wantToRead')} className="dropdown-item">
+                                <button onClick={() => {
+                                        onAddToShelf(this.state.book, 'wantToRead')
+                                    }}
+                                    className="dropdown-item"
+                                >
                                     Add to Want 2 Read
                                 </button>
                             }
                             {
                                 this.props.page !== 'read' &&
-                                <button onClick={() => onAddToShelf(this.state.book, 'read')} className="dropdown-item">
+                                <button onClick={() => {
+                                        onAddToShelf(this.state.book, 'read')
+                                    }}
+                                    className="dropdown-item"
+                                >
                                     Add to Read
                                 </button>
-                            }
-                            {
-                                this.props.page !== 'filter' &&
-                                <div>
-                                    <div className="dropdown-divider"></div>
-                                    <button onClick={() => onDelete(this.state.book) } className="dropdown-item">
-                                        Delete
-                                    </button>
-                                </div>
                             }
                         </div>
                     }
