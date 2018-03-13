@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import './App.css'
 import { Route } from 'react-router-dom'
 import * as booksApi from './utils/BooksApi'
-import Reads from './reads/Reads'
-import Filter from './filter/Filter';
+import Reads from './components/Reads'
+import Search from './components/Search';
 
 class App extends Component {
 
@@ -39,7 +39,7 @@ class App extends Component {
                     />
                 )} />
                 <Route exact path='/search' render={() => (
-                    <Filter
+                    <Search
                         books={this.state.books}
                         onAddToShelf={this.addToShelf}
                     />

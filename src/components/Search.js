@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import sortBy from 'sort-by'
-import Book from '../reads/Book'
+import Book from './Book'
 import * as booksApi from '../utils/BooksApi'
 
-class Filter extends Component {
+class Search extends Component {
 
     state = {
         query: '',
@@ -18,15 +18,6 @@ class Filter extends Component {
     updateQuery = (query) => {
         console.log('query: ', query)
         this.setState({ query: query.trim() })
-    }
-
-    addToShelf = (book, shelf) => {
-        console.log(book.title, shelf)
-        booksApi.update(book, shelf)
-             .then((r) => console.log(r))
-        // const updated = this.state.book
-        // updated.shelf = shelf
-        // this.setState({book: updated})
     }
 
     render() {
@@ -59,8 +50,8 @@ class Filter extends Component {
                             <Book
                                 key={ book.id }
                                 book={ book }
-                                page={ this.props.page }
-                                onAddToShelf={ this.addToShelf }
+                                page='search'
+                                onAddToShelf={ this.onAddToShelf }
                             />
                     ))}
                 </ul>
@@ -70,7 +61,7 @@ class Filter extends Component {
                             <Book
                                 key={ book.id }
                                 book={ book }
-                                page={ this.props.page }
+                                page='search'
                                 onAddToShelf={ this.addToShelf }
                             />
                     ))}
@@ -80,4 +71,4 @@ class Filter extends Component {
     }
 }
 
-export default Filter
+export default Search
