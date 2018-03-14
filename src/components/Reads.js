@@ -27,11 +27,9 @@ class Reads extends Component {
                         My Books
                     </div>
                     <div className='col'>
-                    <div className='search'>
                         <Link to='/search' className='search-link'>
                             <i className="fa fa-search"></i>
                         </Link>
-                    </div>
                     </div>
                 </div>
 

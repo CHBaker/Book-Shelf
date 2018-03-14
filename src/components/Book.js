@@ -38,14 +38,33 @@ class Book extends Component {
                 {page !== 'search' &&
                     <div className='book-element'>
                         <div className='img-container'>
-                            <img className='book-background' src={book.imageLinks.thumbnail} alt={`${book.title} by ${book.author}`}/>
+                            {
+                                book.imageLinks !== undefined &&
+                                <img className='book-background' src={book.imageLinks.thumbnail} alt={`${book.title} by ${book.author}`}/>
+                            }
+                            {
+                                book.imageLinks === undefined &&
+                                <div className='container book-background no-img'>
+                                    <div className='row'>
+                                        <div className='col no-padding'>
+                                            { book.title }
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div className='col no-padding'>
+                                            { book.authors }
+                                    </div>
+                                    <hr/>
+                                </div>
+                            }
                         </div>
                         <div className="btn-group">
-                            <button onClick={this.toggleHidden.bind(this)} type="button" className="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Action
+                            <button onClick={this.toggleHidden.bind(this)} type="button" className="btn btn-info book-actions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <i className="fa fa-chevron-circle-down"></i>
                             </button>
                             {this.state.isHidden &&
                                 <div className="dropdown-menu" style={{ display: 'block' }}>
+                                    <i className="fa fa-caret-up"></i>
                                     {
                                         page !== 'currentlyReading' &&
                                         <button
@@ -54,7 +73,7 @@ class Book extends Component {
                                             }}
                                             className="dropdown-item"
                                         >
-                                            Add to Currently Reading
+                                            Currently Reading
                                         </button>
                                     }
                                     {
@@ -64,7 +83,7 @@ class Book extends Component {
                                         }}
                                             className="dropdown-item"
                                         >
-                                            Add to Want 2 Read
+                                            Want 2 Read
                                         </button>
                                     }
                                     {
@@ -74,7 +93,7 @@ class Book extends Component {
                                         }}
                                             className="dropdown-item"
                                         >
-                                            Add to Read
+                                            Read
                                             </button>
                                     }
                                     {
@@ -94,14 +113,32 @@ class Book extends Component {
                 } { page === 'search' &&
                     <div className='book-element'>
                         <div className='img-container'>
-                            <img className='book-background' src={book.imageLinks.thumbnail} alt={`${book.title} by ${book.author}`}/>
+                            {book.imageLinks &&
+                                <img className='book-background' src={book.imageLinks.thumbnail} alt={`${book.title} by ${book.author}`}/>
+                            }
+                            {
+                                book.imageLinks === undefined &&
+                                <div className='container book-background no-img'>
+                                    <div className='row'>
+                                        <div className='col no-padding'>
+                                            { book.title }
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div className='col no-padding'>
+                                            { book.authors }
+                                    </div>
+                                    <hr/>
+                                </div>
+                            }
                         </div>
                         <div className="btn-group">
-                            <button onClick={this.toggleHidden.bind(this)} type="button" className="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Action
+                            <button onClick={this.toggleHidden.bind(this)} type="button" className="btn btn-info book-actions-search" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <i className="fa fa-chevron-circle-down"></i>
                             </button>
                             {this.state.isHidden &&
                                 <div className="dropdown-menu" style={{ display: 'block' }}>
+                                    <i className="fa fa-caret-up"></i>
                                     <button
                                         onClick={() => {
                                             onAddToShelf(this.state.book, 'currentlyReading')
@@ -109,11 +146,9 @@ class Book extends Component {
                                         className="dropdown-item"
                                     >
                                         {book.shelf === 'currentlyReading' &&
-                                            <div className='check'>
-                                                check
-                                            </div>
+                                            <i className="fa fa-check"></i>
                                         }
-                                        Add to Currently Reading
+                                        Currently Reading
                                         </button>
                                     <button
                                         onClick={() => {
@@ -122,11 +157,9 @@ class Book extends Component {
                                         className="dropdown-item"
                                     >
                                         {book.shelf === 'wantToRead' &&
-                                            <div className='check'>
-                                                check
-                                            </div>
+                                            <i className="fa fa-check"></i>
                                         }
-                                        Add to Want 2 Read
+                                        Want 2 Read
                                         </button>
                                     <button
                                         onClick={() => {
@@ -135,11 +168,9 @@ class Book extends Component {
                                         className="dropdown-item"
                                     >
                                         {book.shelf === 'read' &&
-                                            <div className='check'>
-                                                check
-                                            </div>
+                                            <i className="fa fa-check"></i>
                                         }
-                                        Add to Read
+                                        Read
                                     </button>
                                 </div>
                             }
