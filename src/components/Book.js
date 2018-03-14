@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import * as booksApi from '../utils/BooksApi'
 
 class Book extends Component {
 
@@ -11,17 +12,19 @@ class Book extends Component {
     }
 
     state = {
-        hidden: true
+        show: false
     }
 
-    componentDidMount() {
-        this.setState({ book: this.props.book })
+    componentWillMount() {
+        this.setState({book: this.props.book})
+        booksApi.get(this.props.book.id)
+            .then((book) => this.setState({book: book}))
     }
 
     toggleHidden = () => {
         console.log('showing')
         this.setState({
-            isHidden: !this.state.isHidden
+            show: !this.state.show
         })
     }
 
@@ -29,9 +32,10 @@ class Book extends Component {
         const {
             onAddToShelf,
             onDelete,
-            page,
-            book
+            page
         } = this.props
+
+        const { show, book } = this.state
 
         return (
             <div className='col book-wrapper'>
@@ -62,7 +66,7 @@ class Book extends Component {
                             <button onClick={this.toggleHidden.bind(this)} type="button" className="btn btn-info book-actions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 <i className="fa fa-chevron-circle-down"></i>
                             </button>
-                            {this.state.isHidden &&
+                            {show &&
                                 <div className="dropdown-menu" style={{ display: 'block' }}>
                                     <i className="fa fa-caret-up"></i>
                                     {
@@ -136,7 +140,7 @@ class Book extends Component {
                             <button onClick={this.toggleHidden.bind(this)} type="button" className="btn btn-info book-actions-search" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 <i className="fa fa-chevron-circle-down"></i>
                             </button>
-                            {this.state.isHidden &&
+                            {show &&
                                 <div className="dropdown-menu" style={{ display: 'block' }}>
                                     <i className="fa fa-caret-up"></i>
                                     <button
@@ -171,6 +175,15 @@ class Book extends Component {
                                             <i className="fa fa-check"></i>
                                         }
                                         Read
+                                    </button>
+                                    <button
+                                        className="dropdown-item"
+                                    >
+                                        {
+                                            book.shelf === 'none' &&
+                                            <i className="fa fa-check"></i>
+                                        }
+                                        None
                                     </button>
                                 </div>
                             }
