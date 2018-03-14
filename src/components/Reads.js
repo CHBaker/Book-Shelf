@@ -11,7 +11,7 @@ class Reads extends Component {
     }
 
     render(props) {
-        const { books, onAddToShelf, OnUpdateBooks } = this.props
+        const { books, onAddToShelf } = this.props
         let currentBooks, wantBooks, readBooks
 
         currentBooks = books.filter((book) => book.shelf === 'currentlyReading')
@@ -30,7 +30,7 @@ class Reads extends Component {
                                 key={book.id}
                                 book={book}
                                 page='currentlyReading'
-                                onAddToShelf={this.props.onAddToShelf}
+                                onAddToShelf={onAddToShelf}
                             />
                         ))}
                     </ul>
@@ -47,7 +47,7 @@ class Reads extends Component {
                                 key={book.id}
                                 book={book}
                                 page='wantToRead'
-                                onAddToShelf={this.props.onAddToShelf}
+                                onAddToShelf={onAddToShelf}
                             />
                         ))}
                     </ul>

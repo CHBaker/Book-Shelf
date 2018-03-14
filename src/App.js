@@ -25,8 +25,7 @@ class App extends Component {
     addToShelf = (book, shelf) => {
         console.log(book.title, shelf)
         booksApi.update(book, shelf)
-            .then((r) => console.log(r))
-        this.getAllBooks()
+            .then(() => this.getAllBooks())
     }
 
     render() {

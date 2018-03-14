@@ -6,6 +6,11 @@ import * as booksApi from '../utils/BooksApi'
 
 class Search extends Component {
 
+    static propTypes = {
+        books: PropTypes.array.isRequired,
+        onAddToShelf: PropTypes.func.isRequired
+    }
+
     state = {
         query: '',
         books: []
@@ -21,6 +26,7 @@ class Search extends Component {
     }
 
     render() {
+        const { books, onAddToShelf } = this.props
         const { query } = this.state
 
         if (query) {
@@ -51,7 +57,7 @@ class Search extends Component {
                                 key={ book.id }
                                 book={ book }
                                 page='search'
-                                onAddToShelf={ this.onAddToShelf }
+                                onAddToShelf={ onAddToShelf }
                             />
                     ))}
                 </ul>
@@ -62,7 +68,7 @@ class Search extends Component {
                                 key={ book.id }
                                 book={ book }
                                 page='search'
-                                onAddToShelf={ this.addToShelf }
+                                onAddToShelf={ onAddToShelf }
                             />
                     ))}
                 </ul>
