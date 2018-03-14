@@ -28,6 +28,11 @@ class App extends Component {
             .then(() => this.getAllBooks())
     }
 
+    delete = (book) => {
+        booksApi.update(book, 'none')
+            .then(() => this.getAllBooks())
+    }
+
     render() {
         return (
             <div>
@@ -35,6 +40,7 @@ class App extends Component {
                     <Reads
                         books={this.state.books}
                         onAddToShelf={this.addToShelf}
+                        onDelete={this.delete}
                     />
                 )} />
                 <Route exact path='/search' render={() => (

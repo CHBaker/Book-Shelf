@@ -4,7 +4,10 @@ import PropTypes from 'prop-types'
 class Book extends Component {
 
     static propTypes = {
-        onAddToShelf: PropTypes.func
+        onAddToShelf: PropTypes.func.isRequired,
+        onDelete: PropTypes.func,
+        book: PropTypes.object.isRequired,
+        page: PropTypes.string.isRequired
     }
 
     state = {
@@ -23,13 +26,20 @@ class Book extends Component {
     }
 
     render() {
-        const { onAddToShelf, page, book } = this.props
+        const {
+            onAddToShelf,
+            onDelete,
+            page,
+            book
+        } = this.props
 
         return (
-            <div>
+            <div className='col'>
                 {page !== 'search' &&
                     <div className='book-element'>
-                        <li>{book.title}</li>
+                        <div className='img-container'>
+                            <img className='book-background' src={book.imageLinks.thumbnail} alt={`${book.title} by ${book.author}`}/>
+                        </div>
                         <div className="btn-group">
                             <button onClick={this.toggleHidden.bind(this)} type="button" className="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Action
@@ -66,6 +76,16 @@ class Book extends Component {
                                         >
                                             Add to Read
                                             </button>
+                                    }
+                                    {
+                                        page !== 'search' &&
+                                        <button onClick={() => {
+                                            onDelete(this.state.book)
+                                        }}
+                                            className="dropdown-item"
+                                        >
+                                            Delete
+                                        </button>
                                     }
                                 </div>
                             }
@@ -112,7 +132,7 @@ class Book extends Component {
                                         }}
                                         className="dropdown-item"
                                     >
-                                        {book.shelf === 'wantToRead' &&
+                                        {book.shelf === 'read' &&
                                             <div className='check'>
                                                 check
                                             </div>

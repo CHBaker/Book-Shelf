@@ -7,11 +7,12 @@ class Reads extends Component {
 
     static propTypes = {
         books: PropTypes.array.isRequired,
-        onAddToShelf: PropTypes.func.isRequired
+        onAddToShelf: PropTypes.func.isRequired,
+        onDelete: PropTypes.func.isRequired
     }
 
     render(props) {
-        const { books, onAddToShelf } = this.props
+        const { books, onAddToShelf, onDelete } = this.props
         let currentBooks, wantBooks, readBooks
 
         currentBooks = books.filter((book) => book.shelf === 'currentlyReading')
@@ -20,54 +21,75 @@ class Reads extends Component {
 
         return (
             <div>
-                <div>
-                    <div className='title'>
-                        <h1>Currently Reading</h1>
+                <div className='row title-row'>
+                    <div className='col'></div>
+                    <div className='col header-title'>
+                        My Books
                     </div>
-                    <ul>
+                    <div className='col'></div>
+                </div>
+
+                <div className='row shelf-header-current'>
+                    <div className='col-1'></div>
+                    <div className='col shelf-title'>
+                        Currently Reading
+                    </div>
+                    <div className='col'></div>
+                </div>
+                <div className='container'>
+                    <div className='row'>
                         {currentBooks.map((book) => (
                             <Book
                                 key={book.id}
                                 book={book}
                                 page='currentlyReading'
                                 onAddToShelf={onAddToShelf}
+                                onDelete={onDelete}
                             />
                         ))}
-                    </ul>
+                    </div>
                 </div>
 
-                <div>
-                    <div className='title'>
-                        <h1>Want 2 Read</h1>
-                        <hr />
+                <div className='row shelf-header-want'>
+                    <div className='col-1'></div>
+                    <div className='col shelf-title'>
+                            Want To Read
                     </div>
-                    <ul>
+                    <div className='col'></div>
+                </div>
+                <div className='container'>
+                    <div className='row'>
                         {wantBooks.map((book) => (
                             <Book
                                 key={book.id}
                                 book={book}
                                 page='wantToRead'
                                 onAddToShelf={onAddToShelf}
+                                onDelete={onDelete}
                             />
                         ))}
-                    </ul>
+                    </div>
                 </div>
 
-                <div>
-                    <div className='title'>
-                        <h1>Read</h1>
-                        <hr />
+                <div className='row shelf-header-read'>
+                    <div className='col-1'></div>
+                    <div className='col shelf-title'>
+                        Read
                     </div>
-                    <ul>
+                    <div className='col'></div>
+                </div>
+                <div className='container'>
+                    <div className='row'>
                         {readBooks.map((book) => (
                             <Book
                                 key={book.id}
                                 book={book}
                                 page='read'
                                 onAddToShelf={this.props.onAddToShelf}
+                                onDelete={onDelete}
                             />
                         ))}
-                    </ul>
+                    </div>
                 </div>
 
                 <div className='search'>

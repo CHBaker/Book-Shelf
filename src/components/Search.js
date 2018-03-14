@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import sortBy from 'sort-by'
 import Book from './Book'
 import * as booksApi from '../utils/BooksApi'
 
@@ -14,10 +13,6 @@ class Search extends Component {
     state = {
         query: '',
         books: []
-    }
-
-    componentDidMount() {
-        this.setState({books: this.props.books})
     }
 
     updateQuery = (query) => {
@@ -62,7 +57,7 @@ class Search extends Component {
                     ))}
                 </ul>
                 <ul>
-                    {this.state.query === '' && this.props.books
+                    {this.state.query === '' && books
                         .map((book) => (
                             <Book
                                 key={ book.id }
