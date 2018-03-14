@@ -34,7 +34,7 @@ class Book extends Component {
         } = this.props
 
         return (
-            <div className='col'>
+            <div className='col book-wrapper'>
                 {page !== 'search' &&
                     <div className='book-element'>
                         <div className='img-container'>
@@ -93,7 +93,9 @@ class Book extends Component {
                     </div>
                 } { page === 'search' &&
                     <div className='book-element'>
-                        <li>{book.title}</li>
+                        <div className='img-container'>
+                            <img className='book-background' src={book.imageLinks.thumbnail} alt={`${book.title} by ${book.author}`}/>
+                        </div>
                         <div className="btn-group">
                             <button onClick={this.toggleHidden.bind(this)} type="button" className="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Action

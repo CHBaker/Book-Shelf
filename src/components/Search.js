@@ -45,28 +45,33 @@ class Search extends Component {
                         />
                     </form>
                 </div>
-                <ul>
-                    {this.state.books
-                        .map((book) => (
-                            <Book
-                                key={ book.id }
-                                book={ book }
-                                page='search'
-                                onAddToShelf={ onAddToShelf }
-                            />
-                    ))}
-                </ul>
-                <ul>
-                    {this.state.query === '' && books
-                        .map((book) => (
-                            <Book
-                                key={ book.id }
-                                book={ book }
-                                page='search'
-                                onAddToShelf={ onAddToShelf }
-                            />
-                    ))}
-                </ul>
+                <div className='container'>
+                    <div className='row'>
+                        {this.state.books
+                            .map((book) => (
+                                <Book
+                                    key={ book.id }
+                                    book={ book }
+                                    page='search'
+                                    onAddToShelf={ onAddToShelf }
+                                />
+                        ))}
+                    </div>
+                </div>
+                <div className='container'>
+                    <div className='row'>
+                        {this.state.query === '' && books
+                            .map((book) => (
+                                <Book
+                                    key={ book.id }
+                                    book={ book }
+                                    page='search'
+                                    onAddToShelf={ onAddToShelf }
+                                />
+                            ))
+                        }
+                    </div>
+                </div>
             </div>
         )
     }

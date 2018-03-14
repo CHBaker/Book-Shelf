@@ -6,14 +6,29 @@
     z-index: 5;
     background: #E9D758;
     height: 65px;
-    -webkit-box-shadow: 5px 5px 5px 5px grey;
+    -webkit-box-shadow: 5px 5px 5px 5px #75616173;
     box-shadow: 0px 5px 5px 5px #75616173;
     font-size: 40px;
     color: #39393A;
 }
 
+.search-link {
+    color: #297373;
+    transition: all 150ms ease;
+}
+
+.search-link:hover {
+    color: #ff8552;
+    transition: all 150ms ease;
+}
+
 .header-title {
     text-align: center;
+}
+
+.shelf-title {
+    border-bottom: 2px solid white;
+    border-radius: 2px;
 }
 
 .book-background {
@@ -21,14 +36,24 @@
     height: 193px;
 }
 
+.book-wrapper {
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
 .shelf-header-current {
     background: #ff8552;
-    height: 50px;
+    height: 60px;
     font-size: 28px;
     color: white;
-    padding-top: 3px;
-    margin-bottom: 30px;
-    margin-top: 50px;
+    padding-top: 13px;
+}
+
+.shelf-background-current {
+    background: #ff8552;
+    padding-top: 35px;
+    padding-bottom: 65px;
 }
 
 .shelf-header-want {
@@ -37,8 +62,12 @@
     font-size: 28px;
     color: white;
     padding-top: 3px;
-    margin-bottom: 30px;
-    margin-top: 50px;
+}
+
+.shelf-background-want {
+    background: #297373;
+    padding-top: 35px;
+    padding-bottom: 65px;
 }
 
 .shelf-header-read {
@@ -47,6 +76,10 @@
     font-size: 28px;
     color: white;
     padding-top: 3px;
-    margin-bottom: 30px;
-    margin-top: 50px;
+}
+
+.shelf-background-read {
+    background: #39393A;
+    padding-top: 35px;
+    padding-bottom: 65px;
 }
