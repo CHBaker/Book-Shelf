@@ -42,11 +42,9 @@ class Search extends Component {
                         if (searchedBooks.error) {
                             console.log(searchedBooks)
                             this.setState({books: [], results: false})
-                            this.loading
                         } else {
                             this.setState({ books: searchedBooks, results: true})
                             console.log(this.state.books)
-                            this.loading
                         }
                     }
                 )
